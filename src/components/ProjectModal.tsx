@@ -1,5 +1,5 @@
-
-import { X, ExternalLink, Github } from "lucide-react";
+import { X, Globe, Rocket, ArrowRight, Github, ExternalLink } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Project {
     id: number;
@@ -17,67 +17,74 @@ interface ProjectModalProps {
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
     return (
-        <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/95 backdrop-blur-md animate-fadeIn p-4 md:p-8"
-            onClick={onClose}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => { if (e.key === 'Escape') onClose(); }}
-            aria-label="Close modal"
-        >
-            <div
-                className="relative w-full max-w-6xl h-full md:h-auto md:max-h-[90vh] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row animate-slideUp cursor-default"
-                onClick={(e) => e.stopPropagation()}
-                role="dialog"
-                aria-modal="true"
+        <AnimatePresence>
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-3xl p-4 md:p-8"
+                onClick={onClose}
             >
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/10 hover:bg-black/20 transition-all flex items-center justify-center text-stone-800 hover:rotate-90 duration-300"
+                <motion.div
+                    initial={{ scale: 0.9, opacity: 0, y: 50 }}
+                    animate={{ scale: 1, opacity: 1, y: 0 }}
+                    exit={{ scale: 0.9, opacity: 0, y: 50 }}
+                    className="relative w-full max-w-6xl h-full md:h-auto md:max-h-[90vh] bg-brand-sidebar/60 border border-white/5 rounded-[4rem] shadow-2xl overflow-hidden flex flex-col md:flex-row cursor-default backdrop-blur-2xl"
+                    onClick={(e) => e.stopPropagation()}
                 >
-                    <X size={24} />
-                </button>
+                    <button
+                        onClick={onClose}
+                        className="absolute top-8 right-8 z-20 w-14 h-14 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all flex items-center justify-center text-white"
+                    >
+                        <X size={24} />
+                    </button>
 
-                {/* Image Section */}
-                <div className="w-full md:w-2/3 h-1/2 md:h-auto bg-gray-100 relative">
-                    <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                    />
-                </div>
+                    {/* Image Section */}
+                    <div className="w-full md:w-1/2 h-1/2 md:h-auto bg-black relative p-10">
+                        <img
+                            src={project.image}
+                            alt={project.title}
+                            className="w-full h-full object-cover rounded-[3rem] shadow-2xl"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-brand-sidebar/20 to-transparent"></div>
+                    </div>
 
-                {/* Content Section */}
-                <div className="w-full md:w-1/3 p-8 md:p-12 overflow-y-auto bg-white flex flex-col">
-                    <div className="mb-auto">
-                        <span className="text-yellow-500 font-bold tracking-wider text-xs uppercase mb-2 block">{project.category}</span>
-                        <h2 className="text-3xl font-bold text-gray-800 mb-4">{project.title}</h2>
-                        <p className="text-gray-600 leading-relaxed mb-6">
-                            {project.description}
-                        </p>
+                    {/* Content Section */}
+                    <div className="w-full md:w-1/2 p-10 md:p-20 overflow-y-auto flex flex-col justify-between">
+                        <div>
+                            <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-brand-accent/10 border border-brand-accent/20 rounded-full mb-8">
+                               <Rocket size={12} className="text-brand-accent" />
+                               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-accent">{project.category}</span>
+                            </div>
+                            
+                            <h2 className="text-6xl font-black tracking-tighter uppercase italic mb-8 leading-none">{project.title}</h2>
+                            <p className="text-brand-text-muted leading-relaxed mb-12 text-lg font-medium">
+                                {project.description}
+                            </p>
 
-                        <div className="mb-8">
-                            <h3 className="font-bold text-gray-800 mb-3 text-sm">Technologies</h3>
-                            <div className="flex flex-wrap gap-2">
-                                {project.technologies.map((tech, i) => (
-                                    <span key={i} className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
-                                        {tech}
-                                    </span>
-                                ))}
+                            <div className="mb-16">
+                                <h3 className="text-[10px] font-black text-white/40 uppercase tracking-[0.4em] mb-8">System Architecture</h3>
+                                <div className="flex flex-wrap gap-4">
+                                    {project.technologies.map((tech, i) => (
+                                        <span key={i} className="px-6 py-2.5 bg-white/5 text-white text-[10px] uppercase font-black tracking-widest rounded-2xl border border-white/5">
+                                            {tech}
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="space-y-3 mt-8">
-                        <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 px-4 rounded flex items-center justify-center gap-2 transition-colors uppercase text-sm">
-                            View Project <ExternalLink size={16} />
-                        </button>
-                        <button className="w-full border-2 border-gray-200 hover:border-gray-800 text-gray-600 hover:text-gray-800 font-bold py-3 px-4 rounded flex items-center justify-center gap-2 transition-colors uppercase text-sm">
-                            Github <Github size={16} />
-                        </button>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+                            <button className="bg-white text-black hover:bg-brand-accent font-black py-6 px-6 rounded-[2rem] flex items-center justify-center gap-3 transition-all text-[10px] uppercase tracking-widest">
+                                Live Preview <ExternalLink size={18} />
+                            </button>
+                            <button className="bg-white/5 border border-white/10 hover:bg-white/10 text-white font-black py-6 px-6 rounded-[2rem] flex items-center justify-center gap-3 transition-all text-[10px] uppercase tracking-widest">
+                                <Github size={18} /> Source Code
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </motion.div>
+            </motion.div>
+        </AnimatePresence>
     );
 }

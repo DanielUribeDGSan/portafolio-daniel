@@ -1,5 +1,7 @@
-
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
+import { Layout, Globe, Box, Terminal, ChevronRight } from "lucide-react";
 import ProjectModal from "./ProjectModal";
 
 const projects = [
@@ -8,7 +10,7 @@ const projects = [
         title: "E-Commerce Dashboard",
         category: "Web Application",
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        description: "A comprehensive dashboard for managing online stores, including inventory, orders, and customer data analysis. A comprehensive dashboard for managing online stores, including inventory, orders, and customer data analysis.A comprehensive dashboard for managing online stores, including inventory, orders, and customer data analysis.",
+        description: "A comprehensive dashboard for managing online stores, including inventory, orders, and customer data analysis.",
         technologies: ["React", "TypeScript", "Tailwind", "Recharts"]
     },
     {
@@ -34,88 +36,68 @@ const projects = [
         image: "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         description: "Live event streaming platform with real-time chat, user authentication, and ticketing system.",
         technologies: ["Laravel", "Vue.js", "WebSockets", "AWS"]
-    },
-    {
-        id: 5,
-        title: "Corporate Website",
-        category: "Web Design",
-        image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        description: "Modern corporate website for a multinational firm, focusing on accessibility and SEO.",
-        technologies: ["WordPress", "PHP", "SASS"]
-    },
-    {
-        id: 6,
-        title: "Medical Blog System",
-        category: "Content Management",
-        image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        description: "A network of medical blogs for healthcare professionals to share articles and case studies.",
-        technologies: ["WordPress", "Custom Theme", "MySQL"]
     }
 ];
 
 export default function Portfolio() {
+    const { t } = useTranslation();
     const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
     return (
-        <section className="mb-12">
-            <div className="text-center mb-10">
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">Portfolio</h2>
-                <p className="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">
-                    A selection of projects demonstrating full stack capabilities.
-                </p>
+        <section id="portfolio" className="py-0">
+            <div className="flex flex-col items-center text-center mb-32 space-y-6">
+                <div className="w-12 h-12 bg-brand-secondary/10 border border-brand-secondary/20 rounded-2xl flex items-center justify-center">
+                    <Box className="text-brand-secondary" size={24} />
+                </div>
+                <h2 className="text-5xl font-black tracking-tighter uppercase italic">{t('portfolio.title')}</h2>
+                <div className="w-20 h-1 bg-gradient-to-r from-transparent via-brand-secondary to-transparent"></div>
             </div>
 
-            {/* Masonry Layout using CSS Columns */}
-            <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
-                {projects.map((project) => (
-                    <div
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                {projects.map((project, index) => (
+                    <motion.div
                         key={project.id}
-                        className="break-inside-avoid bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 group flex flex-col"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.1 }}
+                        className="group bg-brand-sidebar/40 backdrop-blur-3xl border border-white/5 rounded-[3rem] overflow-hidden hover:bg-white/5 transition-all hover:border-white/10 flex flex-col shadow-2xl"
                         onClick={() => setSelectedProject(project)}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedProject(project); }}
-                        aria-label={`View details for ${project.title}`}
                     >
-                        {/* Image placeholder or header - Optional in Kanban view, but adding for visual appeal */}
-                        {/* To strictly follow "adapt to text", we let text dominate. We can hide image or make it small? 
-                Let's keep it as a header for visual impact (Pinterest style). */}
-                        <div className="relative overflow-hidden">
+                        <div className="relative h-72 overflow-hidden bg-brand-dark p-6">
                             <img
                                 src={project.image}
                                 alt={project.title}
-                                className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                className="w-full h-full object-cover rounded-[2rem] transition-transform duration-1000 group-hover:scale-105"
                             />
-                            <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-gray-800 shadow-sm">
-                                {project.category}
+                            <div className="absolute inset-0 bg-gradient-to-t from-brand-sidebar via-transparent to-transparent opacity-60"></div>
+                            <div className="absolute top-10 left-10">
+                                <span className="px-4 py-2 bg-black/60 backdrop-blur-md text-[10px] font-black uppercase tracking-[0.2em] rounded-xl border border-white/10">
+                                    {project.category}
+                                </span>
                             </div>
                         </div>
 
-                        <div className="p-5 flex flex-col flex-1">
-                            <h3 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-yellow-500 transition-colors">
-                                {project.title}
-                            </h3>
-                            <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
+                        <div className="p-12 space-y-8">
+                            <div className="flex justify-between items-start">
+                                <h3 className="text-4xl font-black tracking-tight leading-none group-hover:text-brand-accent transition-colors">{project.title}</h3>
+                                <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-brand-accent group-hover:text-black transition-all">
+                                   <ChevronRight size={24} />
+                                </div>
+                            </div>
+                            <p className="text-brand-text-muted text-base leading-relaxed font-medium">
                                 {project.description}
                             </p>
 
-                            <div className="flex flex-wrap gap-2 mt-auto">
-                                {project.technologies.slice(0, 3).map((tech, i) => (
-                                    <span key={i} className="px-2 py-1 bg-gray-50 text-gray-500 text-xs rounded border border-gray-100">
-                                        {tech}
+                            <div className="flex flex-wrap gap-3">
+                                {project.technologies.map((tech, i) => (
+                                    <span key={i} className="text-[10px] font-bold tracking-[0.2em] text-white/20 uppercase">
+                                        #{tech}
                                     </span>
                                 ))}
-                                {project.technologies.length > 3 && (
-                                    <span className="px-2 py-1 bg-gray-50 text-gray-500 text-xs rounded border border-gray-100">
-                                        +{project.technologies.length - 3}
-                                    </span>
-                                )}
                             </div>
                         </div>
-
-                        {/* Hover visual cue */}
-                        <div className="h-1 w-0 bg-yellow-400 group-hover:w-full transition-all duration-300"></div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
 

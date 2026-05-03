@@ -1,94 +1,84 @@
-
-import { ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { ArrowRight, Github, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Hero() {
-    return (
-        <section className="bg-white rounded-lg p-8 md:p-12 mb-8 flex flex-col md:flex-row items-center justify-between shadow-sm relative overflow-hidden">
-            {/* Decorative elements */}
-            <div className="absolute top-4 left-8 text-yellow-400 text-xl">○</div>
-            <div className="absolute top-12 right-1/3 text-green-400 text-xl">○</div>
-            <div className="absolute bottom-8 left-1/4 text-green-400 text-xl">○</div>
-            <div className="absolute top-20 right-10 text-yellow-400 rotate-45 text-2xl">□</div>
-            <div className="absolute bottom-20 right-1/2 text-blue-400 rotate-12 text-xl">□</div>
-            <div className="absolute bottom-10 right-10 text-red-400 text-sm">△</div>
+  const { t } = useTranslation();
 
+  return (
+    <section id="hero" className="relative min-h-[70vh] flex flex-col items-center justify-center text-center">
+      {/* Orbital SVG Animation Background */}
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+        <div className="relative w-[600px] h-[600px]">
+          {/* Static Orbit Rings */}
+          <div className="absolute inset-0 border border-white/5 rounded-full scale-100"></div>
+          <div className="absolute inset-0 border border-white/5 rounded-full scale-125"></div>
+          <div className="absolute inset-0 border border-white/5 rounded-full scale-150"></div>
 
-            <div className="max-w-lg z-10">
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
-                    I'm Daniel Uribe
-                </h1>
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-                    <span className="text-yellow-400">Full Stack</span> Developer
-                </h2>
-                <p className="text-gray-500 mb-8 leading-relaxed max-w-sm">
-                    Desarrollador Full Stack con 7 años de experiencia en aplicaciones web y móviles. Experto en React, TypeScript, Next.js, Node.js, Laravel, Angular y React Native.
-                </p>
-                <button className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 px-8 rounded flex items-center gap-2 transition-colors uppercase text-sm">
-                    Hire Me <ArrowRight size={16} />
-                </button>
-            </div>
+          {/* Animated Orbiting Elements */}
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0"
+          >
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-brand-accent rounded-full blur-sm"></div>
+          </motion.div>
 
-            <div className="mt-8 md:mt-0 relative z-10 w-full md:w-1/2 flex justify-center items-center perspective-1000 h-80 md:h-96" onMouseMove={(e) => {
-                const { currentTarget, clientX, clientY } = e;
-                const { left, top, width, height } = currentTarget.getBoundingClientRect();
-                const x = (clientX - left) / width - 0.5;
-                const y = (clientY - top) / height - 0.5;
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0 scale-125"
+          >
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-brand-secondary rounded-full blur-sm"></div>
+          </motion.div>
+        </div>
+      </div>
 
-                currentTarget.style.setProperty('--mouse-x', x.toString());
-                currentTarget.style.setProperty('--mouse-y', y.toString());
-            }}
-                onMouseLeave={(e) => {
-                    e.currentTarget.style.setProperty('--mouse-x', '0');
-                    e.currentTarget.style.setProperty('--mouse-y', '0');
-                }}
-            >
-                {/* Icons Container with 3D effect */}
-                <div className="relative w-64 h-64 md:w-80 md:h-80 transform-style-3d transition-transform duration-200 ease-out"
-                    style={{
-                        transform: 'rotateY(calc(var(--mouse-x, 0) * 10deg)) rotateX(calc(var(--mouse-y, 0) * -10deg))'
-                    }}
-                >
-                    {/* React Icon */}
-                    <div className="absolute top-0 right-10 w-20 h-20 md:w-24 md:h-24 flex items-center justify-center transform transition-transform duration-500 hover:scale-110"
-                        style={{ transform: 'translateZ(50px) translateX(calc(var(--mouse-x, 0) * -20px)) translateY(calc(var(--mouse-y, 0) * -20px))' }}>
-                        <img
-                            src="/assets/react.svg"
-                            alt="React"
-                            className="w-full h-full drop-shadow-lg"
-                        />
-                    </div>
+      {/* Content */}
+      <div className="relative z-10 max-w-4xl space-y-12">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="inline-flex items-center gap-3 px-6 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-md"
+        >
+          <Sparkles size={14} className="text-brand-accent" />
+          <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/60">{t('hero.greeting')}</span>
+          <ArrowRight size={14} className="text-white/20" />
+        </motion.div>
 
-                    {/* JavaScript Icon */}
-                    <div className="absolute bottom-10 left-0 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center transform transition-transform duration-500 hover:scale-110"
-                        style={{ transform: 'translateZ(30px) translateX(calc(var(--mouse-x, 0) * -40px)) translateY(calc(var(--mouse-y, 0) * -30px))' }}>
-                        <img
-                            src="/assets/js.svg"
-                            alt="JavaScript"
-                            className="w-full h-full drop-shadow-lg"
-                        />
-                    </div>
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-7xl md:text-[9rem] font-black tracking-tighter leading-[0.8] text-white"
+        >
+          {t('hero.title_main')} <br />
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white/80 to-white/40">{t('hero.title_accent')}</span>
+        </motion.h1>
 
-                    {/* Tailwind Icon */}
-                    <div className="absolute bottom-0 right-10 w-14 h-14 md:w-20 md:h-20 flex items-center justify-center transform transition-transform duration-500 hover:scale-110"
-                        style={{ transform: 'translateZ(20px) translateX(calc(var(--mouse-x, 0) * 30px)) translateY(calc(var(--mouse-y, 0) * 30px))' }}>
-                        <img
-                            src="/assets/tailwind.svg"
-                            alt="Tailwind CSS"
-                            className="w-full h-full drop-shadow-lg"
-                        />
-                    </div>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-lg md:text-xl text-brand-text-muted max-w-2xl mx-auto font-medium leading-relaxed"
+        >
+          {t('hero.intro')}
+        </motion.p>
 
-                    {/* Node.js Icon */}
-                    <div className="absolute top-10 left-10 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center transform transition-transform duration-500 hover:scale-110"
-                        style={{ transform: 'translateZ(40px) translateX(calc(var(--mouse-x, 0) * 10px)) translateY(calc(var(--mouse-y, 0) * 40px))' }}>
-                        <img
-                            src="/assets/nodejs.svg"
-                            alt="Node.js"
-                            className="w-full h-full drop-shadow-lg"
-                        />
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="flex flex-wrap justify-center gap-6 pt-6"
+        >
+          <button className="bg-white text-black px-12 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-brand-accent transition-all shadow-xl shadow-white/5">
+            {t('hero.cta_primary')}
+          </button>
+          <button className="bg-brand-sidebar/40 border border-white/10 px-12 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:bg-white/5 transition-all">
+            <Github size={18} /> {t('hero.cta_secondary')}
+          </button>
+        </motion.div>
+      </div>
+    </section>
+  );
 }

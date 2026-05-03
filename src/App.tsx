@@ -1,60 +1,65 @@
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ClickToComponent } from "click-to-react-component";
 import Sidebar from "./components/Sidebar";
 import Hero from "./components/Hero";
-
-
 import Portfolio from "./components/Portfolio";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import Experience from './components/Experience';
+import { motion, AnimatePresence } from "framer-motion";
+
+import Navbar from "./components/Navbar";
+
+import Showcase from "./components/Showcase";
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { i18n } = useTranslation();
 
   return (
     <>
       <ClickToComponent editor="antigravity" />
 
-      <div className="flex min-h-screen bg-gray-50 font-sans">
-        {/* Mobile Menu Toggle */}
-        <button
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="lg:hidden fixed top-4 left-4 z-50 bg-yellow-400 p-2 rounded-full shadow-lg text-gray-800"
-        >
-          {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-
-        {/* Left Sidebar - Fixed on desktop, drawer on mobile */}
-        <div
-          className={`fixed inset-0 z-40 lg:static lg:z-auto bg-black/50 lg:bg-transparent transition-opacity duration-300 ${isSidebarOpen ? "opacity-100 visible" : "opacity-0 invisible lg:opacity-100 lg:visible"}`}
-          onClick={() => setIsSidebarOpen(false)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsSidebarOpen(false); }}
-          aria-label="Close sidebar"
-        >
-          <div className={`fixed left-0 top-0 bottom-0 w-[280px] bg-white transition-transform duration-300 lg:translate-x-0 lg:static ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`} onClick={(e) => e.stopPropagation()}>
-            <Sidebar />
-          </div>
+      <div className="relative min-h-screen bg-brand-dark text-white font-sans overflow-x-hidden selection:bg-brand-accent selection:text-white">
+        {/* Deep Space Background */}
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          {/* Stars Layer 1 */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-transparent to-black"></div>
+          <svg className="absolute inset-0 w-full h-full opacity-30" xmlns="http://www.w3.org/2000/svg">
+            <filter id="noise">
+              <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#noise)" />
+          </svg>
+          
+          {/* Nebula Glow (Launch UI style) */}
+          <div className="absolute -bottom-[20%] left-1/2 -translate-x-1/2 w-[120%] h-[60%] bg-brand-accent/10 blur-[120px] rounded-full"></div>
+          <div className="absolute -top-[10%] left-[20%] w-[40%] h-[40%] bg-brand-secondary/5 blur-[120px] rounded-full"></div>
         </div>
 
-        {/* Main Content Area */}
-        <main className="flex-1 p-6 lg:p-10 w-full">
-          <Hero />
+        <Navbar />
 
-
-
-          <Experience />
-
-          <Portfolio />
-
-
-          <footer className="bg-white p-4 text-center text-gray-400 text-sm">
-            <p>&copy; {new Date().getFullYear()} Daniel Uribe García. All Rights Reserved.</p>
-          </footer>
-        </main>
-
+        <div className="relative z-10">
+          <main className="w-full h-screen overflow-y-auto scroll-smooth custom-scrollbar pt-32">
+            <div className="max-w-7xl mx-auto px-6 lg:px-20 py-12 lg:py-24 space-y-32 md:space-y-48">
+              <Hero />
+              <Experience />
+              <Showcase />
+              <Portfolio />
+              
+              <footer className="pt-40 pb-20 text-center border-t border-white/5">
+                <div className="flex flex-col items-center gap-6">
+                   <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center border border-white/10">
+                      <div className="w-2 h-2 bg-brand-accent rounded-full animate-ping"></div>
+                   </div>
+                   <p className="text-[10px] font-bold uppercase tracking-[0.6em] text-brand-text-muted">
+                     Mission Control &copy; {new Date().getFullYear()}
+                   </p>
+                </div>
+              </footer>
+            </div>
+          </main>
+        </div>
       </div>
     </>
   );
