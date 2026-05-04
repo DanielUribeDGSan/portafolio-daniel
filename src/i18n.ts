@@ -23,7 +23,7 @@ const resources = {
         "greeting": "Ready for Liftoff 2026",
         "title_main": "Daniel",
         "title_accent": "Uribe",
-        "intro": "<b>Full Stack Developer with 7 years of experience</b> in web and mobile applications. Expertise in <b>React, TypeScript, Next.js, Node.js, Laravel, Angular, and React Native</b>. Proven experience working on enterprise-level projects for <b>Cinépolis, Banorte, and BBVA</b>, delivering digital solutions focused on <b>process optimization and user experience</b>.",
+        "intro": "<b>Full Stack Developer SR with 7 years of experience</b> in web and mobile applications. Expertise in <b>React, TypeScript, Next.js, Node.js, Laravel, Angular, and React Native</b>. Proven experience working on enterprise-level projects for <b>Cinépolis, Banorte, and BBVA</b>, delivering digital solutions focused on <b>process optimization and user experience</b>.",
         "cta_primary": "Download CV",
         "cta_secondary": "Github"
       },
@@ -86,7 +86,7 @@ const resources = {
         "greeting": "Listo para el despegue 2026",
         "title_main": "Daniel",
         "title_accent": "Uribe",
-        "intro": "<b>Desarrollador Full Stack con 7 años de experiencia</b> en aplicaciones web y móviles. Experto en <b>React, TypeScript, Next.js, Node.js, Laravel, Angular y React Native</b>. Experiencia comprobada en proyectos empresariales para <b>Cinépolis, Banorte y BBVA</b>, desarrollando soluciones digitales enfocadas en la <b>optimización de procesos y la experiencia de usuario</b>.",
+        "intro": "<b>Desarrollador Full Stack SR con 7 años de experiencia</b> en aplicaciones web y móviles. Experto en <b>React, TypeScript, Next.js, Node.js, Laravel, Angular y React Native</b>. Experiencia comprobada en proyectos empresariales para <b>Cinépolis, Banorte y BBVA</b>, desarrollando soluciones digitales enfocadas en la <b>optimización de procesos y la experiencia de usuario</b>.",
         "cta_primary": "Descargar CV",
         "cta_secondary": "Github"
       },

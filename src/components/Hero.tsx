@@ -6,7 +6,7 @@ export default function Hero() {
   const { t, i18n } = useTranslation();
 
   return (
-    <section id="hero" className="relative min-h-[70vh] flex flex-col items-center justify-center text-center">
+    <section id="hero" className="relative min-h-[70vh] flex flex-col items-center justify-center text-center overflow-hidden">
       {/* Orbital SVG Animation Background */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
         <div className="relative w-[600px] h-[600px]">
@@ -49,7 +49,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-7xl md:text-[9rem] font-black tracking-tighter leading-[0.8] text-white"
+          className="text-5xl sm:text-7xl md:text-[9rem] font-black tracking-tighter leading-[0.8] text-white break-words"
         >
           {t('hero.title_main')} <br />
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white/80 to-white/40">{t('hero.title_accent')}</span>

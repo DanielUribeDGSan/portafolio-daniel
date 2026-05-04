@@ -35,7 +35,7 @@ function App() {
         <Navbar />
 
         <div className="relative z-10">
-          <main className="w-full h-screen overflow-y-auto scroll-smooth custom-scrollbar pt-32">
+          <main className="w-full h-screen overflow-y-auto overflow-x-hidden scroll-smooth custom-scrollbar pt-32">
             <div className="max-w-7xl mx-auto px-6 lg:px-20 py-12 lg:py-24 space-y-32 md:space-y-48">
               <Hero />
               <Experience />
