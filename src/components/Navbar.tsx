@@ -1,9 +1,23 @@
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Search, Globe, Rocket, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 20;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrolled]);
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'es' : 'en';
@@ -24,8 +38,12 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center p-6">
-      <div className="w-full max-w-7xl flex items-center justify-between px-8 py-4 bg-brand-sidebar/40 backdrop-blur-xl border border-white/5 rounded-2xl shadow-2xl">
+    <nav className={`fixed top-0 left-0 right-0 z-50 flex justify-center p-6 transition-all duration-300 ${scrolled ? 'py-4' : 'py-6'}`}>
+      <div className={`w-full max-w-7xl flex items-center justify-between px-8 py-4 transition-all duration-300 rounded-2xl ${
+        scrolled 
+        ? 'bg-black/80 backdrop-blur-2xl border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.8)]' 
+        : 'bg-brand-sidebar/40 backdrop-blur-xl border-white/5 shadow-2xl'
+      } border`}>
         {/* Logo */}
         <div 
           className="flex items-center gap-3 cursor-pointer group" 
@@ -34,7 +52,7 @@ export default function Navbar() {
           <div className="w-10 h-10 bg-gradient-to-tr from-brand-accent to-brand-secondary rounded-xl flex items-center justify-center transition-transform group-hover:rotate-12">
             <Rocket size={20} className="text-black" />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col drop-shadow-md">
             <span className="text-sm font-black tracking-tighter uppercase leading-none">Daniel.</span>
             <span className="text-[8px] font-bold tracking-[0.4em] text-brand-text-muted uppercase leading-none mt-1">Systems</span>
           </div>
@@ -46,7 +64,7 @@ export default function Navbar() {
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-text-muted hover:text-white transition-colors relative group"
+              className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-text-muted hover:text-white transition-colors relative group drop-shadow-md"
             >
               {item.label}
               <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-accent transition-all group-hover:w-full"></span>

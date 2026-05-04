@@ -19,8 +19,8 @@ const resources = {
       },
       "hero": {
         "greeting": "Ready for Liftoff 2026",
-        "title_main": "Build your next",
-        "title_accent": "big idea.",
+        "title_main": "Daniel",
+        "title_accent": "Uribe",
         "intro": "Full Stack Developer specialized in crafting high-performance, cosmic-scale web experiences with React, Node.js and Cloud architecture.",
         "cta_primary": "Get Started",
         "cta_secondary": "Github"
@@ -77,8 +77,8 @@ const resources = {
       },
       "hero": {
         "greeting": "Listo para el despegue 2026",
-        "title_main": "Construye tu próxima",
-        "title_accent": "gran idea.",
+        "title_main": "Daniel",
+        "title_accent": "Uribe",
         "intro": "Desarrollador Full Stack especializado en crear experiencias web de escala cósmica y alto rendimiento con React, Node.js y arquitectura Cloud.",
         "cta_primary": "Empezar",
         "cta_secondary": "Github"
