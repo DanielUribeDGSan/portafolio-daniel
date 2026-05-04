@@ -1,20 +1,15 @@
 
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
+
 import { ClickToComponent } from "click-to-react-component";
-import Sidebar from "./components/Sidebar";
 import Hero from "./components/Hero";
 import Portfolio from "./components/Portfolio";
-import { Menu, X, Globe } from "lucide-react";
 import Experience from './components/Experience';
-import { motion, AnimatePresence } from "framer-motion";
 
 import Navbar from "./components/Navbar";
-
 import Showcase from "./components/Showcase";
+import Education from "./components/Education";
 
 function App() {
-  const { i18n } = useTranslation();
 
   return (
     <>
@@ -31,7 +26,7 @@ function App() {
             </filter>
             <rect width="100%" height="100%" filter="url(#noise)" />
           </svg>
-          
+
           {/* Nebula Glow (Launch UI style) */}
           <div className="absolute -bottom-[20%] left-1/2 -translate-x-1/2 w-[120%] h-[60%] bg-brand-accent/10 blur-[120px] rounded-full"></div>
           <div className="absolute -top-[10%] left-[20%] w-[40%] h-[40%] bg-brand-secondary/5 blur-[120px] rounded-full"></div>
@@ -44,17 +39,18 @@ function App() {
             <div className="max-w-7xl mx-auto px-6 lg:px-20 py-12 lg:py-24 space-y-32 md:space-y-48">
               <Hero />
               <Experience />
+              <Education />
               <Showcase />
               <Portfolio />
-              
+
               <footer className="pt-40 pb-20 text-center border-t border-white/5">
                 <div className="flex flex-col items-center gap-6">
-                   <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center border border-white/10">
-                      <div className="w-2 h-2 bg-brand-accent rounded-full animate-ping"></div>
-                   </div>
-                   <p className="text-[10px] font-bold uppercase tracking-[0.6em] text-brand-text-muted">
-                     Mission Control &copy; {new Date().getFullYear()}
-                   </p>
+                  <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center border border-white/10">
+                    <div className="w-2 h-2 bg-brand-accent rounded-full animate-ping"></div>
+                  </div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.6em] text-brand-text-muted">
+                    Daniel Uribe &copy; {new Date().getFullYear()}
+                  </p>
                 </div>
               </footer>
             </div>

@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Github, Sparkles } from "lucide-react";
+import { Download, Github, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Hero() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <section id="hero" className="relative min-h-[70vh] flex flex-col items-center justify-center text-center">
@@ -43,7 +43,6 @@ export default function Hero() {
         >
           <Sparkles size={14} className="text-brand-accent" />
           <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/60">{t('hero.greeting')}</span>
-          <ArrowRight size={14} className="text-white/20" />
         </motion.div>
 
         <motion.h1
@@ -60,10 +59,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-lg md:text-xl text-brand-text-muted max-w-2xl mx-auto font-medium leading-relaxed"
-        >
-          {t('hero.intro')}
-        </motion.p>
+          className="text-lg md:text-xl text-white/40 max-w-3xl mx-auto font-medium leading-relaxed [&_b]:text-white/90 [&_b]:font-bold"
+          dangerouslySetInnerHTML={{ __html: t('hero.intro') }}
+        />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -71,10 +69,21 @@ export default function Hero() {
           transition={{ delay: 0.3 }}
           className="flex flex-wrap justify-center gap-6 pt-6"
         >
-          <button className="bg-white text-black px-12 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-brand-accent transition-all shadow-xl shadow-white/5">
-            {t('hero.cta_primary')}
+          <button
+            onClick={() => {
+              const cvPath = i18n.language === 'en'
+                ? '/cv/Daniel-Uribe-Garcia-Ingles.pdf'
+                : '/cv/Daniel-Uribe-Garcia-Español.pdf';
+              window.open(cvPath, '_blank');
+            }}
+            className="bg-white text-black px-12 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-brand-accent transition-all shadow-xl shadow-white/5 flex items-center gap-2"
+          >
+            {t('hero.cta_primary')} <Download size={18} />
           </button>
-          <button className="bg-brand-sidebar/40 border border-white/10 px-12 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:bg-white/5 transition-all">
+          <button
+            onClick={() => window.open('https://github.com/DanielUribeDGSan', '_blank')}
+            className="bg-brand-sidebar/40 border border-white/10 px-12 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:bg-white/5 transition-all"
+          >
             <Github size={18} /> {t('hero.cta_secondary')}
           </button>
         </motion.div>

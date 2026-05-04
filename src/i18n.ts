@@ -6,10 +6,12 @@ const resources = {
   en: {
     translation: {
       "navbar": {
-        "mission": "Mission",
-        "logbook": "Logbook",
-        "modules": "Modules",
-        "get_started": "Get Started"
+        "mission": "Who am I?",
+        "logbook": "Experience",
+        "education": "Education",
+        "modules": "Portfolio",
+        "get_started": "Download CV",
+        "go_to": "Go to"
       },
       "sidebar": {
         "about": "Tell me about yourself",
@@ -21,8 +23,8 @@ const resources = {
         "greeting": "Ready for Liftoff 2026",
         "title_main": "Daniel",
         "title_accent": "Uribe",
-        "intro": "Full Stack Developer specialized in crafting high-performance, cosmic-scale web experiences with React, Node.js and Cloud architecture.",
-        "cta_primary": "Get Started",
+        "intro": "<b>Full Stack Developer with 7 years of experience</b> in web and mobile applications. Expertise in <b>React, TypeScript, Next.js, Node.js, Laravel, Angular, and React Native</b>. Proven experience working on enterprise-level projects for <b>Cinépolis, Banorte, and BBVA</b>, delivering digital solutions focused on <b>process optimization and user experience</b>.",
+        "cta_primary": "Download CV",
         "cta_secondary": "Github"
       },
       "experience": {
@@ -58,16 +60,21 @@ const resources = {
       },
       "portfolio": {
         "title": "Selected Modules"
+      },
+      "education": {
+        "title": "Education"
       }
     }
   },
   es: {
     translation: {
       "navbar": {
-        "mission": "Misión",
-        "logbook": "Bitácora",
-        "modules": "Módulos",
-        "get_started": "Empezar"
+        "mission": "¿Quién soy?",
+        "logbook": "Experiencia Profesional",
+        "education": "Educación",
+        "modules": "Portafolio",
+        "get_started": "Descargar CV",
+        "go_to": "Ir a"
       },
       "sidebar": {
         "about": "Cuéntame sobre ti",
@@ -79,8 +86,8 @@ const resources = {
         "greeting": "Listo para el despegue 2026",
         "title_main": "Daniel",
         "title_accent": "Uribe",
-        "intro": "Desarrollador Full Stack especializado en crear experiencias web de escala cósmica y alto rendimiento con React, Node.js y arquitectura Cloud.",
-        "cta_primary": "Empezar",
+        "intro": "<b>Desarrollador Full Stack con 7 años de experiencia</b> en aplicaciones web y móviles. Experto en <b>React, TypeScript, Next.js, Node.js, Laravel, Angular y React Native</b>. Experiencia comprobada en proyectos empresariales para <b>Cinépolis, Banorte y BBVA</b>, desarrollando soluciones digitales enfocadas en la <b>optimización de procesos y la experiencia de usuario</b>.",
+        "cta_primary": "Descargar CV",
         "cta_secondary": "Github"
       },
       "experience": {
@@ -116,6 +123,9 @@ const resources = {
       },
       "portfolio": {
         "title": "Módulos Seleccionados"
+      },
+      "education": {
+        "title": "Educación"
       }
     }
   }

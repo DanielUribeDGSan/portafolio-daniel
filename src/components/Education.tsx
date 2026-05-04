@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { Cpu, Radio } from "lucide-react";
+import { Cpu, Zap } from "lucide-react";
 
 interface ExperienceItem {
   company: string;
@@ -9,17 +9,18 @@ interface ExperienceItem {
   description: string;
 }
 
-export default function Experience() {
+export default function Education() {
   const { t } = useTranslation();
+  // Using experience items for now as requested
   const experiences = t('experience.items', { returnObjects: true }) as ExperienceItem[];
 
   return (
-    <section id="experience" className="py-0">
+    <section id="education" className="py-0">
       <div className="flex flex-col items-center text-center mb-32 space-y-6">
          <div className="w-12 h-12 bg-brand-accent/10 border border-brand-accent/20 rounded-2xl flex items-center justify-center">
-            <Radio className="text-brand-accent animate-pulse" size={24} />
+            <Zap className="text-brand-accent animate-pulse" size={24} />
          </div>
-         <h2 className="text-5xl font-black tracking-tighter uppercase italic">{t('experience.title')}</h2>
+         <h2 className="text-5xl font-black tracking-tighter uppercase italic">{t('education.title')}</h2>
          <div className="w-20 h-1 bg-gradient-to-r from-transparent via-brand-accent to-transparent"></div>
       </div>
 
