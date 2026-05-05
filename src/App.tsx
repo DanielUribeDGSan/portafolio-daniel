@@ -2,7 +2,6 @@
 
 import { ClickToComponent } from "click-to-react-component";
 import Hero from "./components/Hero";
-import Portfolio from "./components/Portfolio";
 import Experience from './components/Experience';
 
 import Navbar from "./components/Navbar";
@@ -43,7 +42,6 @@ function App() {
               <Education />
               <Skills />
               <Showcase />
-              <Portfolio />
 
               <footer className="pt-40 pb-20 text-center border-t border-white/5">
                 <div className="flex flex-col items-center gap-6">

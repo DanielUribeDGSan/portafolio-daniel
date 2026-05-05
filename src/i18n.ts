@@ -92,14 +92,11 @@ const resources = {
       },
       "showcase": {
         "tag": "Application Demo",
-        "title": "Mission Control Interface",
+        "title": "Featured Projects",
         "idle": "System_Idle_Mode",
         "live": "Streaming_Live_Feed.mp4",
         "cta": "Launch Application Demo",
         "connecting": "Connecting to orbital server..."
-      },
-      "portfolio": {
-        "title": "Selected Modules"
       },
       "education": {
         "title": "Education",
@@ -230,14 +227,11 @@ const resources = {
       },
       "showcase": {
         "tag": "Demo de Aplicación",
-        "title": "Interfaz de Control de Misión",
+        "title": "Proyectos Destacados",
         "idle": "Sistema_en_Espera",
         "live": "Transmision_en_Vivo.mp4",
         "cta": "Lanzar Demo de Aplicación",
         "connecting": "Conectando al servidor orbital..."
-      },
-      "portfolio": {
-        "title": "Módulos Seleccionados"
       },
       "education": {
         "title": "Educación",

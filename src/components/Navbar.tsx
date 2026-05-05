@@ -39,7 +39,7 @@ export default function Navbar() {
     { label: t('navbar.mission'), id: 'hero' },
     { label: t('navbar.logbook'), id: 'experience' },
     { label: t('navbar.education'), id: 'education' },
-    { label: t('navbar.modules'), id: 'portfolio' },
+    { label: t('navbar.modules'), id: 'showcase' },
   ];
 
   const scrollToSection = (id: string) => {
