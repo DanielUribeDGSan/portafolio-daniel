@@ -102,9 +102,15 @@ export default function Navbar() {
 
           {/* 3. Actions (Language + CV + Toggle) */}
           <div className={`flex items-center gap-4 ${isMobile && !isExpanded ? 'w-full justify-between' : 'flex-shrink-0'}`}>
-             <button onClick={toggleLanguage} className="flex items-center gap-2 text-brand-text-muted hover:text-white transition-colors">
-              <Globe size={14} />
-              <span className="text-[10px] font-bold uppercase tracking-widest">{i18n.language}</span>
+            <button 
+              onClick={toggleLanguage} 
+              className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-brand-text-muted hover:text-brand-accent hover:border-brand-accent/40 hover:bg-white/10 transition-all group"
+              title={i18n.language === 'en' ? 'Cambiar a Español' : 'Switch to English'}
+            >
+              <Globe size={14} className="group-hover:rotate-12 transition-transform" />
+              <span className="text-[10px] font-black uppercase tracking-[0.2em]">
+                {i18n.language.startsWith('en') ? 'ES' : 'EN'}
+              </span>
             </button>
 
             <button

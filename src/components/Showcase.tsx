@@ -1,101 +1,237 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Maximize2, Terminal } from "lucide-react";
+import { Play, Maximize2, Terminal, ChevronLeft, ArrowLeft, Monitor, Building2, Ticket, Layout, PlayCircle } from "lucide-react";
+
+interface Video {
+  id: string;
+  name: string;
+  path: string;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  icon: any;
+  videos: Video[];
+}
 
 export default function Showcase() {
   const { t } = useTranslation();
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const projects: Project[] = [
+    {
+      id: "banorte",
+      name: "Banorte",
+      icon: Building2,
+      videos: [
+        { id: "plantillas", name: "Plantillas", path: "/portafolio/banorte/plantillas.mp4" },
+        { id: "dnc", name: "DNC", path: "/portafolio/banorte/dnc.mp4" }
+      ]
+    },
+    {
+      id: "bbva",
+      name: "BBVA",
+      icon: Monitor,
+      videos: [
+        { id: "bbva-app", name: "BBVA App", path: "/portafolio/bbva/bbva-app.mp4" }
+      ]
+    },
+    {
+      id: "cinepolis",
+      name: "Cinépolis",
+      icon: Ticket,
+      videos: [
+        { id: "cinepolis", name: "Cinépolis Web", path: "/portafolio/cinepolis/cinepolis.mp4" },
+        { id: "cinepolis-app", name: "Cinépolis App", path: "/portafolio/cinepolis/cinepolis-app.mp4" }
+      ]
+    },
+    {
+      id: "apps-de-escritorio",
+      name: "Apps de Escritorio",
+      icon: Layout,
+      videos: [
+        { id: "floaty", name: "Floaty", path: "/portafolio/apps-de-escritorio/floaty.mp4" },
+        { id: "task-goblin", name: "Task Goblin", path: "/portafolio/apps-de-escritorio/task-goblin.mp4" }
+      ]
+    }
+  ];
+
+  const handleProjectSelect = (project: Project) => {
+    setSelectedProject(project);
+    setCurrentVideoIndex(0);
+  };
+
+  const handleBack = () => {
+    setSelectedProject(null);
+    setCurrentVideoIndex(0);
+  };
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+      videoRef.current.play().catch(e => console.log("Auto-play prevented", e));
+    }
+  }, [selectedProject, currentVideoIndex]);
 
   return (
     <section id="showcase" className="py-0">
-      <div className="flex flex-col items-center text-center mb-20 space-y-4">
+      <div className="flex flex-col items-center text-center mb-12 space-y-4">
         <span className="text-[10px] font-black uppercase tracking-[0.6em] text-brand-accent">{t('showcase.tag')}</span>
         <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic">{t('showcase.title')}</h2>
       </div>
 
+      {/* Project Selection Circles */}
+      <div className="max-w-4xl mx-auto mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 px-4">
+          {projects.map((project) => (
+            <motion.button
+              key={project.id}
+              whileHover={{ scale: 1.05, y: -5 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => handleProjectSelect(project)}
+              className={`flex flex-col items-center gap-4 group transition-all ${selectedProject?.id === project.id ? 'opacity-100' : 'opacity-80 hover:opacity-100'}`}
+            >
+              <div className={`w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all shadow-2xl relative overflow-hidden border-2 ${
+                selectedProject?.id === project.id 
+                ? 'bg-brand-accent border-brand-accent shadow-brand-accent/40' 
+                : 'bg-white/15 border-white/20 group-hover:border-brand-accent/60 group-hover:bg-white/25'
+              }`}>
+                <project.icon size={30} className={`${selectedProject?.id === project.id ? 'text-black' : 'text-white group-hover:text-brand-accent'} transition-colors relative z-10`} />
+                {selectedProject?.id === project.id && (
+                  <motion.div 
+                    layoutId="circle-glow"
+                    className="absolute inset-0 bg-white/30 blur-xl"
+                  />
+                )}
+              </div>
+              <span className={`text-[11px] font-black uppercase tracking-widest transition-colors ${selectedProject?.id === project.id ? 'text-brand-accent' : 'text-white/60 group-hover:text-white'}`}>
+                {project.name}
+              </span>
+            </motion.button>
+          ))}
+        </div>
+      </div>
+
+      {/* Sub-options for multiple videos */}
+      <div className="max-w-xl mx-auto mb-10 h-12">
+        <AnimatePresence mode="wait">
+          {selectedProject && selectedProject.videos.length > 1 && (
+            <motion.div 
+              key={selectedProject.id}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              className="flex justify-center gap-3"
+            >
+              {selectedProject.videos.map((vid, idx) => (
+                <button
+                  key={vid.id}
+                  onClick={() => setCurrentVideoIndex(idx)}
+                  className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${
+                    currentVideoIndex === idx 
+                    ? "bg-brand-accent text-black border-brand-accent shadow-lg shadow-brand-accent/20" 
+                    : "bg-white/10 text-white/80 hover:bg-white/20 hover:text-white border-white/10"
+                  }`}
+                >
+                  {vid.name}
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
       <motion.div 
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="max-w-6xl mx-auto"
+        className="max-w-6xl mx-auto px-4"
       >
-        <div className="bg-brand-sidebar/40 border border-white/5 rounded-[3rem] overflow-hidden shadow-2xl backdrop-blur-3xl">
+        <div className="bg-brand-sidebar/40 border border-white/5 rounded-[3rem] overflow-hidden shadow-2xl backdrop-blur-3xl relative">
           {/* Header Bar */}
           <div className="h-14 border-b border-white/5 flex items-center px-8 justify-between bg-white/5">
-            <div className="flex gap-2.5">
-              <button 
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="w-3.5 h-3.5 rounded-full bg-red-500/40 hover:bg-red-500 transition-colors shadow-lg shadow-red-500/20"
-                title="Play Demo"
-              ></button>
-              <button className="w-3.5 h-3.5 rounded-full bg-yellow-500/40 hover:bg-yellow-500 transition-colors shadow-lg shadow-yellow-500/20"></button>
-              <button className="w-3.5 h-3.5 rounded-full bg-green-500/40 hover:bg-green-500 transition-colors shadow-lg shadow-green-500/20"></button>
+            <div className="flex gap-2.5 items-center">
+              <div className="flex gap-2.5">
+                <div className="w-3.5 h-3.5 rounded-full bg-red-500 shadow-lg shadow-red-500/20"></div>
+                <div className="w-3.5 h-3.5 rounded-full bg-yellow-500 shadow-lg shadow-yellow-500/20"></div>
+                <div className="w-3.5 h-3.5 rounded-full bg-green-500 shadow-lg shadow-green-500/20"></div>
+              </div>
             </div>
             <div className="flex items-center gap-4">
                <div className="text-[10px] font-bold tracking-[0.2em] text-brand-text-muted uppercase hidden md:block">
-                 {isPlaying ? t('showcase.live') : t('showcase.idle')}
+                 {selectedProject ? `${selectedProject.name} // ${selectedProject.videos[currentVideoIndex].name}` : t('showcase.idle')}
                </div>
                <div className="w-px h-4 bg-white/10"></div>
                <Maximize2 size={14} className="text-white/20 hover:text-white cursor-pointer transition-colors" />
             </div>
           </div>
 
-          {/* Main Dashboard Area */}
-          <div className="p-8 md:p-12 aspect-video relative flex flex-col gap-6 bg-black/40">
+          {/* Main Content Area */}
+          <div className="relative aspect-video bg-black overflow-hidden group/player">
             <AnimatePresence mode="wait">
-              {isPlaying ? (
+              {!selectedProject ? (
                 <motion.div 
-                  key="video"
+                  key="idle"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="absolute inset-0 z-20 bg-black"
+                  className="absolute inset-0 flex flex-col items-center justify-center p-12 bg-[radial-gradient(circle_at_center,rgba(255,183,0,0.05)_0%,transparent_70%)]"
                 >
-                  <div className="w-full h-full flex flex-col items-center justify-center gap-6">
-                     <div className="w-20 h-20 bg-brand-accent rounded-full flex items-center justify-center animate-pulse">
-                        <Play size={32} className="text-black fill-black ml-1" />
-                     </div>
-                     <span className="text-xs font-black uppercase tracking-widest text-brand-accent">{t('showcase.connecting')}</span>
-                     
-                     <div className="absolute bottom-8 left-8 right-8 flex items-center justify-between text-[10px] font-mono text-white/40">
-                        <span>00:42 / 02:15</span>
-                        <div className="flex-1 mx-8 h-1 bg-white/10 rounded-full overflow-hidden">
-                           <motion.div 
-                             initial={{ width: 0 }}
-                             animate={{ width: '40%' }}
-                             className="h-full bg-brand-accent"
-                           ></motion.div>
-                        </div>
-                        <span>HD 1080P</span>
-                     </div>
-                  </div>
+                   <div className="flex flex-col items-center gap-6">
+                      <div className="w-24 h-24 bg-white/10 border border-white/20 rounded-full flex items-center justify-center animate-pulse group cursor-pointer hover:bg-brand-accent hover:border-transparent transition-all" onClick={() => handleProjectSelect(projects[0])}>
+                         <PlayCircle size={40} className="text-white group-hover:text-black transition-colors" />
+                      </div>
+                      <div className="flex flex-col items-center gap-2">
+                        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-accent/40">{t('showcase.idle')}</span>
+                        <h3 className="text-xl font-bold text-white/40 tracking-tighter uppercase italic">Selecciona un proyecto para visualizar</h3>
+                      </div>
+                   </div>
                 </motion.div>
               ) : (
                 <motion.div 
-                  key="dashboard"
+                  key="video-player"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="flex flex-col gap-6 h-full"
+                  className="absolute inset-0 z-10"
                 >
-                  <div className="flex gap-6 h-1/3">
-                    <div className="w-1/3 bg-white/5 border border-white/5 rounded-3xl flex items-center justify-center group hover:border-brand-accent/20 transition-all">
-                       <Terminal size={24} className="text-white/10 group-hover:text-brand-accent/40 transition-colors" />
-                    </div>
-                    <div className="w-2/3 bg-white/5 border border-white/5 rounded-3xl p-8 space-y-4">
-                       <div className="w-full h-2 bg-white/5 rounded-full"></div>
-                       <div className="w-3/4 h-2 bg-white/5 rounded-full"></div>
-                       <div className="w-1/2 h-2 bg-brand-accent/20 rounded-full"></div>
-                    </div>
-                  </div>
-                  <div className="flex-1 bg-brand-accent/5 border border-brand-accent/10 border-dashed rounded-4xl flex items-center justify-center group cursor-pointer" onClick={() => setIsPlaying(true)}>
-                     <div className="flex flex-col items-center gap-4">
-                        <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center border border-white/10 group-hover:scale-110 group-hover:bg-brand-accent group-hover:border-transparent transition-all">
-                           <Play size={20} className="text-white group-hover:text-black fill-current" />
+                  <video 
+                    ref={videoRef}
+                    className="w-full h-full object-contain"
+                    controls={false}
+                    autoPlay
+                    loop
+                    muted
+                  >
+                    <source src={selectedProject.videos[currentVideoIndex].path} type="video/mp4" />
+                  </video>
+
+                  {/* Video Controls Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover/player:opacity-100 transition-opacity flex flex-col justify-end p-8">
+                    <div className="flex items-center justify-between gap-6">
+                      <div className="flex items-center gap-4">
+                        <button 
+                          onClick={handleBack}
+                          className="p-3 bg-white/10 hover:bg-brand-accent hover:text-black rounded-full transition-all"
+                          title="Regresar al menú"
+                        >
+                          <ArrowLeft size={20} />
+                        </button>
+                        <div className="flex flex-col">
+                           <span className="text-[10px] font-black uppercase tracking-widest text-brand-accent">{selectedProject.name}</span>
+                           <span className="text-lg font-bold text-white tracking-tight">{selectedProject.videos[currentVideoIndex].name}</span>
                         </div>
-                        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-accent/60 group-hover:text-brand-accent transition-colors">{t('showcase.cta')}</span>
-                     </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-4">
+                        <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                        <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Live Feed // 1080p</span>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
               )}
