@@ -1,4 +1,4 @@
-import { X, Globe, Rocket, ArrowRight, Github, ExternalLink } from "lucide-react";
+import { X, Rocket, Github, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Project {
@@ -53,10 +53,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     <div className="w-full md:w-1/2 p-10 md:p-20 overflow-y-auto flex flex-col justify-between">
                         <div>
                             <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-brand-accent/10 border border-brand-accent/20 rounded-full mb-8">
-                               <Rocket size={12} className="text-brand-accent" />
-                               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-accent">{project.category}</span>
+                                <Rocket size={12} className="text-brand-accent" />
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-accent">{project.category}</span>
                             </div>
-                            
+
                             <h2 className="text-6xl font-black tracking-tighter uppercase italic mb-8 leading-none">{project.title}</h2>
                             <p className="text-brand-text-muted leading-relaxed mb-12 text-lg font-medium">
                                 {project.description}

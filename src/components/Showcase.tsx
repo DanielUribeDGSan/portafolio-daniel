@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Maximize2, Terminal, ChevronLeft, ArrowLeft, Monitor, Building2, Ticket, Layout, PlayCircle } from "lucide-react";
+import { Maximize2, ArrowLeft, Monitor, Building2, Ticket, Layout, PlayCircle } from "lucide-react";
 
 interface Video {
   id: string;
@@ -95,14 +95,13 @@ export default function Showcase() {
               onClick={() => handleProjectSelect(project)}
               className={`flex flex-col items-center gap-4 group transition-all ${selectedProject?.id === project.id ? 'opacity-100' : 'opacity-80 hover:opacity-100'}`}
             >
-              <div className={`w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all shadow-2xl relative overflow-hidden border-2 ${
-                selectedProject?.id === project.id 
-                ? 'bg-brand-accent border-brand-accent shadow-brand-accent/40' 
+              <div className={`w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all shadow-2xl relative overflow-hidden border-2 ${selectedProject?.id === project.id
+                ? 'bg-brand-accent border-brand-accent shadow-brand-accent/40'
                 : 'bg-white/15 border-white/20 group-hover:border-brand-accent/60 group-hover:bg-white/25'
-              }`}>
+                }`}>
                 <project.icon size={30} className={`${selectedProject?.id === project.id ? 'text-black' : 'text-white group-hover:text-brand-accent'} transition-colors relative z-10`} />
                 {selectedProject?.id === project.id && (
-                  <motion.div 
+                  <motion.div
                     layoutId="circle-glow"
                     className="absolute inset-0 bg-white/30 blur-xl"
                   />
@@ -120,7 +119,7 @@ export default function Showcase() {
       <div className="max-w-xl mx-auto mb-10 h-12">
         <AnimatePresence mode="wait">
           {selectedProject && selectedProject.videos.length > 1 && (
-            <motion.div 
+            <motion.div
               key={selectedProject.id}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -131,11 +130,10 @@ export default function Showcase() {
                 <button
                   key={vid.id}
                   onClick={() => setCurrentVideoIndex(idx)}
-                  className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${
-                    currentVideoIndex === idx 
-                    ? "bg-brand-accent text-black border-brand-accent shadow-lg shadow-brand-accent/20" 
+                  className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${currentVideoIndex === idx
+                    ? "bg-brand-accent text-black border-brand-accent shadow-lg shadow-brand-accent/20"
                     : "bg-white/10 text-white/80 hover:bg-white/20 hover:text-white border-white/10"
-                  }`}
+                    }`}
                 >
                   {vid.name}
                 </button>
@@ -145,7 +143,7 @@ export default function Showcase() {
         </AnimatePresence>
       </div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -162,11 +160,11 @@ export default function Showcase() {
               </div>
             </div>
             <div className="flex items-center gap-4">
-               <div className="text-[10px] font-bold tracking-[0.2em] text-brand-text-muted uppercase hidden md:block">
-                 {selectedProject ? `${selectedProject.name} // ${selectedProject.videos[currentVideoIndex].name}` : t('showcase.idle')}
-               </div>
-               <div className="w-px h-4 bg-white/10"></div>
-               <Maximize2 size={14} className="text-white/20 hover:text-white cursor-pointer transition-colors" />
+              <div className="text-[10px] font-bold tracking-[0.2em] text-brand-text-muted uppercase hidden md:block">
+                {selectedProject ? `${selectedProject.name} // ${selectedProject.videos[currentVideoIndex].name}` : t('showcase.idle')}
+              </div>
+              <div className="w-px h-4 bg-white/10"></div>
+              <Maximize2 size={14} className="text-white/20 hover:text-white cursor-pointer transition-colors" />
             </div>
           </div>
 
@@ -174,32 +172,32 @@ export default function Showcase() {
           <div className="relative aspect-video bg-black overflow-hidden group/player">
             <AnimatePresence mode="wait">
               {!selectedProject ? (
-                <motion.div 
+                <motion.div
                   key="idle"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   className="absolute inset-0 flex flex-col items-center justify-center p-12 bg-[radial-gradient(circle_at_center,rgba(255,183,0,0.05)_0%,transparent_70%)]"
                 >
-                   <div className="flex flex-col items-center gap-6">
-                      <div className="w-24 h-24 bg-white/10 border border-white/20 rounded-full flex items-center justify-center animate-pulse group cursor-pointer hover:bg-brand-accent hover:border-transparent transition-all" onClick={() => handleProjectSelect(projects[0])}>
-                         <PlayCircle size={40} className="text-white group-hover:text-black transition-colors" />
-                      </div>
-                      <div className="flex flex-col items-center gap-2">
-                        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-accent/40">{t('showcase.idle')}</span>
-                        <h3 className="text-xl font-bold text-white/40 tracking-tighter uppercase italic">Selecciona un proyecto para visualizar</h3>
-                      </div>
-                   </div>
+                  <div className="flex flex-col items-center gap-6">
+                    <div className="w-24 h-24 bg-white/10 border border-white/20 rounded-full flex items-center justify-center animate-pulse group cursor-pointer hover:bg-brand-accent hover:border-transparent transition-all" onClick={() => handleProjectSelect(projects[0])}>
+                      <PlayCircle size={40} className="text-white group-hover:text-black transition-colors" />
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                      <span className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-accent/40">{t('showcase.idle')}</span>
+                      <h3 className="text-xl font-bold text-white/40 tracking-tighter uppercase italic">Selecciona un proyecto para visualizar</h3>
+                    </div>
+                  </div>
                 </motion.div>
               ) : (
-                <motion.div 
+                <motion.div
                   key="video-player"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   className="absolute inset-0 z-10"
                 >
-                  <video 
+                  <video
                     ref={videoRef}
                     className="w-full h-full object-contain"
                     controls={false}
@@ -214,7 +212,7 @@ export default function Showcase() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover/player:opacity-100 transition-opacity flex flex-col justify-end p-8">
                     <div className="flex items-center justify-between gap-6">
                       <div className="flex items-center gap-4">
-                        <button 
+                        <button
                           onClick={handleBack}
                           className="p-3 bg-white/10 hover:bg-brand-accent hover:text-black rounded-full transition-all"
                           title="Regresar al menú"
@@ -222,11 +220,11 @@ export default function Showcase() {
                           <ArrowLeft size={20} />
                         </button>
                         <div className="flex flex-col">
-                           <span className="text-[10px] font-black uppercase tracking-widest text-brand-accent">{selectedProject.name}</span>
-                           <span className="text-lg font-bold text-white tracking-tight">{selectedProject.videos[currentVideoIndex].name}</span>
+                          <span className="text-[10px] font-black uppercase tracking-widest text-brand-accent">{selectedProject.name}</span>
+                          <span className="text-lg font-bold text-white tracking-tight">{selectedProject.videos[currentVideoIndex].name}</span>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center gap-4">
                         <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
                         <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Live Feed // 1080p</span>
