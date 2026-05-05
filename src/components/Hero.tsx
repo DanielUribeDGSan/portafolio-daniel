@@ -67,7 +67,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-6 pt-6"
+          className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-6"
         >
           <button
             onClick={() => {
@@ -76,13 +76,13 @@ export default function Hero() {
                 : '/cv/Daniel-Uribe-Garcia-Español.pdf';
               window.open(cvPath, '_blank');
             }}
-            className="bg-white text-black px-12 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-brand-accent transition-all shadow-xl shadow-white/5 flex items-center gap-2"
+            className="w-[260px] sm:w-auto justify-center bg-white text-black px-12 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-brand-accent transition-all shadow-xl shadow-white/5 flex items-center gap-2"
           >
             {t('hero.cta_primary')} <Download size={18} />
           </button>
           <button
             onClick={() => window.open('https://github.com/DanielUribeDGSan', '_blank')}
-            className="bg-brand-sidebar/40 border border-white/10 px-12 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:bg-white/5 transition-all"
+            className="w-[260px] sm:w-auto justify-center bg-brand-sidebar/40 border border-white/10 px-12 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:bg-white/5 transition-all"
           >
             <Github size={18} /> {t('hero.cta_secondary')}
           </button>

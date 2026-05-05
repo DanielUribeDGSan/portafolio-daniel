@@ -6,7 +6,8 @@ interface ExperienceItem {
   company: string;
   role: string;
   period: string;
-  description: string;
+  description: string[];
+  technologies?: string[];
 }
 
 export default function Experience() {
@@ -23,7 +24,7 @@ export default function Experience() {
          <div className="w-20 h-1 bg-gradient-to-r from-transparent via-brand-accent to-transparent"></div>
       </div>
 
-      <div className="max-w-4xl mx-auto space-y-12">
+      <div className="max-w-4xl mx-auto space-y-16">
         {experiences.map((exp, index) => (
           <motion.div
             key={index}
@@ -32,27 +33,44 @@ export default function Experience() {
             viewport={{ once: true }}
             className="group relative"
           >
-            <div className="bg-brand-sidebar/40 backdrop-blur-3xl border border-white/5 p-10 rounded-[2.5rem] hover:bg-white/5 transition-all hover:border-white/10 shadow-2xl overflow-hidden">
+            <div className="bg-brand-sidebar/40 backdrop-blur-3xl border border-white/5 p-8 md:p-12 rounded-[2.5rem] hover:bg-white/5 transition-all hover:border-white/10 shadow-2xl overflow-hidden">
                {/* Ambient Glow */}
                <div className="absolute -top-20 -right-20 w-40 h-40 bg-brand-accent/5 blur-[80px] group-hover:bg-brand-accent/10 transition-all"></div>
                
-               <div className="relative z-10 flex flex-col md:flex-row gap-10 md:items-center">
-                  <div className="flex-shrink-0 w-20 h-20 bg-brand-dark border border-white/5 rounded-2xl flex items-center justify-center">
-                     <Cpu size={32} className="text-brand-accent/40 group-hover:text-brand-accent transition-colors" />
+               <div className="relative z-10 flex flex-col gap-8">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                     <div className="flex items-center gap-6">
+                        <div className="flex-shrink-0 w-16 h-16 bg-brand-dark border border-white/5 rounded-2xl flex items-center justify-center">
+                           <Cpu size={28} className="text-brand-accent/40 group-hover:text-brand-accent transition-colors" />
+                        </div>
+                        <div>
+                           <h3 className="text-2xl font-black tracking-tight mb-1">{exp.role}</h3>
+                           <p className="text-lg font-bold text-white/40 italic">{exp.company}</p>
+                        </div>
+                     </div>
+                     <span className="self-start md:self-center text-[10px] font-bold tracking-[0.3em] text-brand-accent uppercase bg-brand-accent/5 px-6 py-2 rounded-full border border-brand-accent/10">
+                        {exp.period}
+                     </span>
                   </div>
                   
-                  <div className="flex-1 space-y-4">
-                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                        <h3 className="text-2xl font-black tracking-tight">{exp.role}</h3>
-                        <span className="text-[10px] font-bold tracking-[0.3em] text-brand-accent uppercase bg-brand-accent/5 px-4 py-1.5 rounded-full border border-brand-accent/10">
-                           {exp.period}
-                        </span>
+                  <ul className="space-y-4">
+                     {exp.description.map((point, i) => (
+                        <li key={i} className="flex gap-4 text-brand-text-muted text-sm leading-relaxed font-medium">
+                           <span className="w-1.5 h-1.5 mt-2 rounded-full bg-brand-accent/40 flex-shrink-0"></span>
+                           {point}
+                        </li>
+                     ))}
+                  </ul>
+
+                  {exp.technologies && (
+                     <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5">
+                        {exp.technologies.map((tech, i) => (
+                           <span key={i} className="text-[9px] font-bold uppercase tracking-widest text-white/30 border border-white/5 px-3 py-1 rounded-lg">
+                              {tech}
+                           </span>
+                        ))}
                      </div>
-                     <p className="text-xl font-bold text-white/40 italic">{exp.company}</p>
-                     <p className="text-brand-text-muted text-sm leading-relaxed max-w-2xl font-medium">
-                        {exp.description}
-                     </p>
-                  </div>
+                  )}
                </div>
             </div>
           </motion.div>

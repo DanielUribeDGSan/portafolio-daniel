@@ -8,6 +8,7 @@ import Experience from './components/Experience';
 import Navbar from "./components/Navbar";
 import Showcase from "./components/Showcase";
 import Education from "./components/Education";
+import Skills from "./components/Skills";
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
               <Hero />
               <Experience />
               <Education />
+              <Skills />
               <Showcase />
               <Portfolio />
 
